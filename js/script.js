@@ -155,9 +155,6 @@ const prendas = [
 // let ingreso = prompt("1: Ingrese la prenda (ver coincidencias de lo ingresado) \n2: Escriba el nombre específico de la prenda a elegir");
 
 
-
-
-
 // if (ingreso == 1) {
 //     prompt("Ingrese la prenda (verás coincidencias de lo ingresado)");
 //     const filtradoPorNombre = prendas.filter((elemento) => {
@@ -190,31 +187,41 @@ agregar(prendasElegidas, encontrado);
 
 //console.log(prendasElegidas);
 
-let metodoDePago = prompt("Ingrese el método de pago \n1 - Efectivo \n2 - Tarjeta de crédito (15% de recargo)");
+let metodoDePago = prompt("Ingrese el método de pago \n1 - Efectivo \n2 - Tarjeta de crédito (tiene un recargo) \n0 - Salir");
 
-const precioTarjeta = prendas.map(elemento => {
-    return {
-        id: elemento.id,
-        prenda: elemento.prenda,
-        precio: elemento.precio * 1.15
-    }
-})
+// const precioTarjeta = prendas.map(elemento => {
+//     return {
+//         id: elemento.id,
+//         prenda: elemento.prenda,
+//         precio: elemento.precio * 1.15
+//     }
+// })
 
 //console.log(precioTarjeta);
 
-if (metodoDePago == 1) {
-    function comprarRopa(ropa, recargo) {
-        return ropa.reduce((acu, el) => {
-            return acu += el.precio;
-        }, recargo);
+function comprarRopa(ropa, recargo) {
+    return ropa.reduce((acu, el) => {
+        return acu += el.precio;
+    }, recargo);
+}
+
+
+while (metodoDePago != 0) {
+    if (metodoDePago == 1) {
+        console.log("El total a pagar es: $" + comprarRopa(prendasElegidas, 0));
+        break;
+    }
+    else if (metodoDePago == 2) {
+        console.log("El total a pagar es: $" + comprarRopa(prendasElegidas, 1500));
+        break
+    }
+    else {
+        alert("Método incorrecto. Vuelva a ingresar");
     }
 
-    console.log("El total a pagar es: $" + comprarRopa(prendasElegidas, 0));
+    metodoDePago = prompt("Ingrese el método de pago \n1 - Efectivo \n2 - Tarjeta de crédito (tiene un recargo) \n0 - Salir");
 }
-else if(metodoDePago == 2){
-    console.log(precioTarjeta);
-}
-else{
-    alert("Método incorrecto");
-}
+
+alert("Gracias por utilizar el simulador");
+
 
