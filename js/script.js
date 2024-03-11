@@ -56,6 +56,7 @@ while (ingreso != "3") {
                 }, 0);
                 let monto = totalEfec * cantidad
                 console.log("Monto a pagar en efectivo: $" + monto);
+                console.log("----------------------------------------");
 
                 montoTotalDeLosProductos += monto;
                 bandera = true;
@@ -72,7 +73,7 @@ while (ingreso != "3") {
                         }, 0);
                         let monto = totalTarjeta * cantidad
                         console.log("Monto a pagar: $" + monto);
-                        console.log("------------------------------");
+                        console.log("----------------------------------------");
 
                         montoTotalDeLosProductos += monto;
                         bandera = true;
@@ -88,7 +89,7 @@ while (ingreso != "3") {
                         console.log("Monto a pagar: $" + monto);
                         let cuota = monto / 3;
                         console.log("3 cuotas de: $" + cuota);
-                        console.log("------------------------------");
+                        console.log("----------------------------------------");
 
                         montoTotalDeLosProductos += monto;
                         bandera = true;
@@ -104,7 +105,7 @@ while (ingreso != "3") {
                         console.log("Monto a pagar: $" + monto);
                         let cuota = monto / 6;
                         console.log("6 cuotas de: $" + cuota);
-                        console.log("------------------------------");
+                        console.log("----------------------------------------");
 
                         montoTotalDeLosProductos += monto;
                         bandera = true;
