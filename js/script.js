@@ -21,7 +21,7 @@ let nombre = prompt("Ingrese su nombre por favor");
 alert("Bienvenido " + nombre + " a mi simulador interactivo");
 
 
-let ingreso = prompt("1: Ver prendas por consola (corta la ejecución) \n2: Elegir una prenda \n3: Salir");
+let ingreso = prompt("1: Ver prendas por consola (corta la ejecución) \n2: Elegir una prenda \n3: Salir del simulador");
 
 let montoTotalDeLosProductos = 0;
 let bandera = false;
@@ -36,7 +36,7 @@ while (ingreso != "3") {
         let cantidad = parseInt(prompt("Cantidad de " + prendaElegida + " que desee: "));
 
         const filtradoPorNombre = prendas.find((el) => {
-            return el.prenda == prendaElegida;
+            return el.prenda.includes(prendaElegida);
         })
         console.log(filtradoPorNombre);
         console.log("Cantidad de productos: " + cantidad);
@@ -45,7 +45,9 @@ while (ingreso != "3") {
         carrito.push(filtradoPorNombre);
         console.log(carrito);
 
-        let metodoDePago = prompt("Ingrese el método de pago \n1 - Efectivo \n2 - Tarjeta de crédito (recargo de un 15%) \n0 - Salir de este apartado");
+        let metodoDePago = prompt("Ingrese el método de pago \n1 - Efectivo \n2 - Tarjeta de crédito (tiene recargo) \n0 - Salir de este apartado");
+
+        let banderaCuota = false
 
         while (metodoDePago != 0) {
             if (metodoDePago == "1") {
@@ -53,7 +55,7 @@ while (ingreso != "3") {
                     return acc += el.precio;
                 }, 0);
                 let monto = totalEfec * cantidad
-                console.log("Monto a pagar: $" + monto);
+                console.log("Monto a pagar en efectivo: $" + monto);
 
                 montoTotalDeLosProductos += monto;
                 bandera = true;
@@ -61,28 +63,76 @@ while (ingreso != "3") {
                 break;
             }
             else if (metodoDePago == "2") {
-                const totalTarjeta = carrito.reduce((acc, el) => {
-                    return acc += el.precio * 1.15;
-                }, 0);
-                let monto = totalTarjeta * cantidad
-                console.log("Monto a pagar: $" + monto);
+                let cuotas = prompt("Ingrese las cuotas a pagar \n1: 5% de recargo \n3: 15% de recargo \n6: 25% de recargo \nx: Salir de las cuotas")
 
-                montoTotalDeLosProductos += monto;
-                bandera = true;
+                while (cuotas != "x") {
+                    if (cuotas == "1") {
+                        const totalTarjeta = carrito.reduce((acc, el) => {
+                            return acc += el.precio * 1.05;
+                        }, 0);
+                        let monto = totalTarjeta * cantidad
+                        console.log("Monto a pagar: $" + monto);
+                        console.log("------------------------------");
 
-                break;
+                        montoTotalDeLosProductos += monto;
+                        bandera = true;
+                        banderaCuota = true;
+
+                        break;
+                    }
+                    else if (cuotas == "3") {
+                        const totalTarjeta = carrito.reduce((acc, el) => {
+                            return acc += el.precio * 1.15;
+                        }, 0);
+                        let monto = totalTarjeta * cantidad
+                        console.log("Monto a pagar: $" + monto);
+                        let cuota = monto / 3;
+                        console.log("3 cuotas de: $" + cuota);
+                        console.log("------------------------------");
+
+                        montoTotalDeLosProductos += monto;
+                        bandera = true;
+                        banderaCuota = true;
+
+                        break;
+                    }
+                    else if (cuotas == "6") {
+                        const totalTarjeta = carrito.reduce((acc, el) => {
+                            return acc += el.precio * 1.25;
+                        }, 0);
+                        let monto = totalTarjeta * cantidad
+                        console.log("Monto a pagar: $" + monto);
+                        let cuota = monto / 6;
+                        console.log("6 cuotas de: $" + cuota);
+                        console.log("------------------------------");
+
+                        montoTotalDeLosProductos += monto;
+                        bandera = true;
+                        banderaCuota = true;
+
+                        break;
+                    }
+                    else
+                        alert("Valor inválido. Ingrese nuevamente")
+
+                    cuotas = prompt("Ingrese las cuotas a pagar \n1: 5% de recargo \n3: 15% de recargo \n6: 25% de recargo \nx: Salir de las cuotas")
+                }
+
             }
             else
                 alert("Método de pago incorrecto. Ingrese nuevamente");
 
-            metodoDePago = prompt("Ingrese el método de pago \n1 - Efectivo \n2 - Tarjeta de crédito (recargo de un 15%) \n0 - Salir de este apartado");
+            if (banderaCuota)
+                break;
+
+            metodoDePago = prompt("Ingrese el método de pago \n1 - Efectivo \n2 - Tarjeta de crédito (tiene recargo) \n0 - Salir de este apartado");
         }
 
     }
     else
         alert("Número incorrecto. Vuelva a ingresar");
 
-    ingreso = prompt("1: Ver prendas (por consola) \n2: Elegir una prenda \n3: Salir");
+    ingreso = prompt("1: Ver prendas (por consola) \n2: Elegir una prenda \n3: Salir del simulador");
 }
 
 
